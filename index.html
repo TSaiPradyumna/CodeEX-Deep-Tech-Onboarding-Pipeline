@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeEX | Deep-Tech Onboarding Pipeline</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .step-content { display: none; }
+        .step-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-[#0b0f17] text-gray-100 font-sans min-h-screen flex items-center justify-center p-4 selection:bg-[#00E5FF] selection:text-black">
+
+    <div class="w-full max-w-2xl glass rounded-2xl p-6 md:p-8 shadow-2xl my-8 relative overflow-hidden">
+        <!-- Glow accents -->
+        <div class="absolute -top-24 -left-24 w-48 h-48 bg-[#00E5FF]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Header -->
+        <div class="text-center mb-8 relative border-b border-gray-800 pb-6">
+            <h1 class="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#00E5FF] to-blue-500">
+                CodeEX
+            </h1>
+            <p class="text-xs uppercase tracking-widest text-[#00E5FF] font-semibold mt-1">Where Logic Meets Leadership</p>
+            <div class="mt-4 inline-block bg-[#00E5FF]/10 border border-[#00E5FF]/20 px-3 py-1 rounded-full text-xs text-[#00E5FF] font-medium animate-pulse">
+                Official Onboarding Drive: 18th & 19th July 2026
+            </div>
+            <p class="text-gray-400 text-sm mt-3 max-w-md mx-auto">
+                Join our elite, agile R&D software studio. Select your track below to enter the evaluation pipeline.
+            </p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="flex items-center justify-between mb-8 max-w-sm mx-auto px-4">
+            <div id="p-step-1" class="w-8 h-8 rounded-full flex items-center justify-center border-2 border-[#00E5FF] bg-[#0b0f17] text-[#00E5FF] font-bold text-sm transition-all">1</div>
+            <div class="h-0.5 flex-1 bg-gray-800 mx-2" id="line-1"></div>
+            <div id="p-step-2" class="w-8 h-8 rounded-full flex items-center justify-center border-2 border-gray-800 bg-[#0b0f17] text-gray-500 font-bold text-sm transition-all">2</div>
+            <div class="h-0.5 flex-1 bg-gray-800 mx-2" id="line-2"></div>
+            <div id="p-step-3" class="w-8 h-8 rounded-full flex items-center justify-center border-2 border-gray-800 bg-[#0b0f17] text-gray-500 font-bold text-sm transition-all">3</div>
+        </div>
+
+        <!-- Form Layout -->
+        <form id="onboardingForm" novalidate>
+            
+            <!-- STEP 1: Domain Selection & Intent -->
+            <div id="step-1" class="step-content active space-y-6">
+                <h3 class="text-lg font-semibold text-white mb-2">Step 1: Core Domain Selection & Intent</h3>
+                <label class="block text-sm font-medium text-gray-300">Select exactly ONE primary domain:</label>
+                
+                <div class="space-y-3 max-h-64 overflow-y-auto pr-2 border border-gray-800/60 p-2 rounded-xl bg-black/20">
+                    <!-- Domain Radios -->
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="Quantum Intelligence (QI)" class="mt-1 accent-[#00E5FF]" required>
+                        <span class="ml-3"><strong class="text-white block text-sm">Quantum Intelligence (QI)</strong><span class="text-xs text-gray-400">Focus: Quantum Algorithms, Quantum Machine Learning, Computational Optimization</span></span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="Creative Engineering & Product Development" class="mt-1 accent-[#00E5FF]">
+                        <span class="ml-3"><strong class="text-white block text-sm">Creative Engineering & Product Development</strong><span class="text-xs text-gray-400">Focus: Digital Media, Web Infrastructure, Product Building</span></span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="Intelligent HealthTech & Bio-Engineering" class="mt-1 accent-[#00E5FF]">
+                        <span class="ml-3"><strong class="text-white block text-sm">Intelligent HealthTech & Bio-Engineering</strong><span class="text-xs text-gray-400">Focus: Clinical Data Analytics, Medical Imaging, Neuro-Tech & Biosignals</span></span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="FinTech Systems & RegTech" class="mt-1 accent-[#00E5FF]">
+                        <span class="ml-3"><strong class="text-white block text-sm">FinTech Systems & RegTech</strong><span class="text-xs text-gray-400">Focus: Financial Infrastructure, AI Risk & Fraud Analysis, Compliance Automation</span></span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="Cyber-Systems Engineering" class="mt-1 accent-[#00E5FF]">
+                        <span class="ml-3"><strong class="text-white block text-sm">Cyber-Systems Engineering</strong><span class="text-xs text-gray-400">Focus: Software-Defined Networks, Secure Cloud Infrastructure, Cybersecurity Operations</span></span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="Intelligent Systems Engineering" class="mt-1 accent-[#00E5FF]">
+                        <span class="ml-3"><strong class="text-white block text-sm">Intelligent Systems Engineering</strong><span class="text-xs text-gray-400">Focus: Generative AI, Computer Vision, Autonomous Agents</span></span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
+                        <input type="radio" name="domain" value="Physics-Informed AI & Scientific Computing" class="mt-1 accent-[#00E5FF]">
+                        <span class="ml-3"><strong class="text-white block text-sm">Physics-Informed AI & Scientific Computing</strong><span class="text-xs text-gray-400">Focus: Scientific Simulations, Inverse Problems, Physics-Aware ML</span></span>
+                    </label>
+                </div>
+
+                <div class="space-y-4 hidden" id="intentFields">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">What specific concepts or tools do you want to learn within this domain over the next semester? *</label>
+                        <textarea name="learningGoals" rows="3" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] p-3 text-sm text-white outline-none transition"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">How do you plan to learn this? Describe your self-study roadmap or learning framework. *</label>
+                        <textarea name="learningRoadmap" rows="3" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] p-3 text-sm text-white outline-none transition"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-4">
+                    <button type="button" onclick="nextStep(2)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-blue-600 hover:opacity-90 text-black font-semibold text-sm shadow-lg transition duration-200">Continue</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Adaptive Prerequisite & Skill Check -->
+            <div id="step-2" class="step-content space-y-6">
+                <h3 class="text-lg font-semibold text-white mb-2">Step 2: Adaptive Prerequisite & Skill Check</h3>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-3">Do you have prior experience or foundational knowledge relevant to this chosen domain?</label>
+                    <div class="flex space-x-6">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="priorExperience" value="Yes" class="accent-[#00E5FF] h-4 w-4" onclick="toggleExperienceFields(true)">
+                            <span class="ml-2 text-sm text-white">Yes, I have background</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="priorExperience" value="No" class="accent-[#00E5FF] h-4 w-4" onclick="toggleExperienceFields(false)">
+                            <span class="ml-2 text-sm text-white">No, I am a fresh learner</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Conditional Path: Experienced -->
+                <div id="experiencedFields" class="space-y-4 hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Rate your domain expertise (1 to 10):</label>
+                        <input type="number" name="expertiseRating" min="1" max="10" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">List your tech stack / tools used:</label>
+                        <input type="text" name="techStack" placeholder="e.g., PyTorch, Docker, Qiskit, Next.js" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Describe a project or complex bottleneck you have personally solved here:</label>
+                        <textarea name="projectDescription" rows="3" placeholder="Explain the problem and your implementation..." class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-3 text-sm text-white outline-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Conditional Path: Fresh Learner -->
+                <div id="freshFields" class="p-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 hidden space-y-3">
+                    <p class="text-xs text-yellow-400 leading-relaxed">
+                        💡 <strong>Commitment Pathway:</strong> As a fresh learner, you will undergo a structured, fast-paced sprint. You must build core competencies rapidly before getting linked with industry-level top-tier projects.
+                    </p>
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" name="commitmentCheck" value="Agreed" class="mt-1 accent-[#00E5FF] h-4 w-4">
+                        <span class="ml-3 text-xs text-gray-300 leading-normal">
+                            Are you fully prepared to dedicate 8-10 hours per week over a fixed period to master the foundations? *
+                        </span>
+                    </label>
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <button type="button" onclick="prevStep(1)" class="px-5 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 font-medium text-sm transition">Back</button>
+                    <button type="button" onclick="nextStep(3)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-blue-600 hover:opacity-90 text-black font-semibold text-sm shadow-lg transition">Continue</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Administrative Profile Data -->
+            <div id="step-3" class="step-content space-y-4">
+                <h3 class="text-lg font-semibold text-white mb-2">Step 3: Background & Administrative Data</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Full Name *</label>
+                        <input type="text" name="fullName" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Academic Roll Number *</label>
+                        <input type="text" name="rollNumber" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Class / Semester / Department *</label>
+                        <input type="text" name="classDetails" placeholder="e.g., III BSc Computer Science" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Official SSSIHL Email *</label>
+                        <input type="email" name="email" placeholder="username@sssihl.edu.in" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">WhatsApp Contact Number *</label>
+                    <input type="tel" name="whatsapp" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">GitHub Profile Link (Optional)</label>
+                        <input type="url" name="github" placeholder="https://github.com/..." class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Portfolio or LinkedIn Link (Optional)</label>
+                        <input type="url" name="portfolio" placeholder="https://..." class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Why choose a fast-paced R&D sandbox like CodeEX over a traditional club? *</label>
+                    <textarea name="whyCodeex" rows="2" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required></textarea>
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <button type="button" onclick="prevStep(2)" class="px-5 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 font-medium text-sm transition">Back</button>
+                    <button type="submit" id="submitBtn" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-emerald-500 hover:opacity-90 text-black font-bold text-sm shadow-lg transition">Submit Application</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successLayout" class="hidden text-center py-12 space-y-4">
+            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto text-emerald-400 text-3xl font-bold">✓</div>
+            <h2 class="text-2xl font-bold text-white">Application Pipeline Activated</h2>
+            <p class="text-gray-400 text-sm max-w-sm mx-auto">
+                Your parameters have been structuralized into the CodeEX repository database. We will review your profile for the next sprint layer.
+            </p>
+        </div>
+    </div>
+
+    <!-- UI Logic & Form Processing Script -->
+    <script>
+        // Replace with your real URL generated during deployment of Google Apps Script
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOcC4vVkzq5LSkHT-Yql0gmZGv-ROvHW9LYTxSGJ3sFtsFIH-Nam6Zpf9XzgiIaxuX4A/exec';
+
+        // Monitor domain selection to show dynamic textareas
+        document.querySelectorAll('input[name="domain"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const fields = document.getElementById('intentFields');
+                fields.classList.remove('hidden');
+                fields.querySelectorAll('textarea').forEach(el => el.setAttribute('required', 'true'));
+            });
+        });
+
+        function toggleExperienceFields(isExperienced) {
+            const expBlock = document.getElementById('experiencedFields');
+            const freshBlock = document.getElementById('freshFields');
+            
+            if(isExperienced) {
+                expBlock.classList.remove('hidden');
+                freshBlock.classList.add('hidden');
+                expBlock.querySelectorAll('input, textarea').forEach(el => el.setAttribute('required', 'true'));
+                freshBlock.querySelector('input').removeAttribute('required');
+            } else {
+                expBlock.classList.add('hidden');
+                freshBlock.classList.remove('hidden');
+                expBlock.querySelectorAll('input, textarea').forEach(el => el.removeAttribute('required'));
+                freshBlock.querySelector('input').setAttribute('required', 'true');
+            }
+        }
+
+        function getActiveStep() {
+            if (document.getElementById('step-1').classList.contains('active')) return 1;
+            if (document.getElementById('step-2').classList.contains('active')) return 2;
+            return 3;
+        }
+
+        function validateStep(step) {
+            const container = document.getElementById(`step-${step}`);
+            const fields = container.querySelectorAll('[required]');
+            let valid = true;
+
+            fields.forEach(f => {
+                if (f.type === 'radio') {
+                    const name = f.getAttribute('name');
+                    const checked = container.querySelector(`input[name="${name}"]:checked`);
+                    if (!checked) valid = false;
+                } else if (f.type === 'checkbox') {
+                    if (!f.checked) valid = false;
+                } else {
+                    if (!f.value.trim()) valid = false;
+                    if (f.type === 'email' && f.value.trim() && !f.value.endsWith('@sssihl.edu.in')) {
+                        alert("Please use your official @sssihl.edu.in email address.");
+                        valid = false;
+                    }
+                }
+            });
+
+            if(!valid) {
+                alert("Please answer all required pipeline parameters explicitly before processing.");
+            }
+            return valid;
+        }
+
+        function nextStep(target) {
+            const current = getActiveStep();
+            if (!validateStep(current)) return;
+
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${target}`).classList.add('active');
+            
+            // Sync indicators
+            for(let i=1; i<=3; i++) {
+                const indicator = document.getElementById(`p-step-${i}`);
+                if (i <= target) {
+                    indicator.classList.add('border-[#00E5FF]', 'text-[#00E5FF]');
+                    if(i < target) document.getElementById(`line-${i}`).classList.add('bg-[#00E5FF]');
+                }
+            }
+        }
+
+        function prevStep(target) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${target}`).classList.add('active');
+        }
+
+        // Form submission interceptor
+        document.getElementById('onboardingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!validateStep(3)) return;
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "Processing Parameters...";
+
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+            
+            // Explicitly set null values for opposing conditional fields
+            if (data.priorExperience === 'No') {
+                data.expertiseRating = 'N/A';
+                data.techStack = 'N/A';
+                data.projectDescription = 'N/A';
+            } else {
+                data.commitmentCheck = 'N/A';
+            }
+
+            // Execute raw JSON injection to the script endpoint
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Bypasses browser CORS constraints cleanly for web-app endpoints
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                document.getElementById('onboardingForm').classList.add('hidden');
+                document.getElementById('successLayout').classList.remove('hidden');
+                document.getElementById('p-step-3').classList.add('bg-[#00E5FF]', 'text-black');
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Pipeline data processing error. Please contact a CodeEX core administrator inside the room.");
+                btn.disabled = false;
+                btn.innerText = "Submit Application";
+            });
+        });
+    </script>
+</body>
+</html>
