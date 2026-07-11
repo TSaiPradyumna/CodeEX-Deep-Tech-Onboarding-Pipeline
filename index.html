@@ -3,229 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeEX | Deep-Tech Onboarding Pipeline</title>
+    <title>CodeEX | R&D Sandbox Onboarding Pipeline</title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        .glass {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        body {
+            background-color: #05070c;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .glass-panel {
+            background: rgba(10, 15, 26, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.03);
+        }
+        .domain-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .domain-card:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            background: rgba(0, 229, 255, 0.03);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.05);
+            transform: translateY(-2px);
+        }
+        .domain-card input[type="radio"]:checked + div {
+            border-color: #00E5FF;
+            background: rgba(0, 229, 255, 0.08);
         }
         .step-content { display: none; }
         .step-content.active { display: block; }
+        
+        /* Custom scrollbar for domains list */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.2); border-radius: 3px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0, 229, 255, 0.4); }
     </style>
 </head>
-<body class="bg-[#0b0f17] text-gray-100 font-sans min-h-screen flex items-center justify-center p-4 selection:bg-[#00E5FF] selection:text-black">
+<body class="text-gray-200 font-sans min-h-screen flex items-center justify-center p-4 selection:bg-[#00E5FF] selection:text-black">
 
-    <div class="w-full max-w-2xl glass rounded-2xl p-6 md:p-8 shadow-2xl my-8 relative overflow-hidden">
-        <!-- Glow accents -->
-        <div class="absolute -top-24 -left-24 w-48 h-48 bg-[#00E5FF]/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="w-full max-w-3xl glass-panel rounded-2xl p-6 md:p-10 relative overflow-hidden my-6">
+        <!-- Structural Matrix Glows -->
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#00E5FF]/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-        <!-- Header -->
-        <div class="text-center mb-8 relative border-b border-gray-800 pb-6">
-            <h1 class="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#00E5FF] to-blue-500">
-                CodeEX
-            </h1>
-            <p class="text-xs uppercase tracking-widest text-[#00E5FF] font-semibold mt-1">Where Logic Meets Leadership</p>
-            <div class="mt-4 inline-block bg-[#00E5FF]/10 border border-[#00E5FF]/20 px-3 py-1 rounded-full text-xs text-[#00E5FF] font-medium animate-pulse">
-                Official Onboarding Drive: 18th & 19th July 2026
+        <!-- System Header -->
+        <div class="text-center mb-10 relative border-b border-gray-900 pb-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-900/80 border border-gray-800 text-xs tracking-wider text-gray-400 mb-4">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                SSSIHL DEEP-TECH HUB
             </div>
-            <p class="text-gray-400 text-sm mt-3 max-w-md mx-auto">
-                Join our elite, agile R&D software studio. Select your track below to enter the evaluation pipeline.
-            </p>
-        </div>
-
-        <!-- Progress Tracker -->
-        <div class="flex items-center justify-between mb-8 max-w-sm mx-auto px-4">
-            <div id="p-step-1" class="w-8 h-8 rounded-full flex items-center justify-center border-2 border-[#00E5FF] bg-[#0b0f17] text-[#00E5FF] font-bold text-sm transition-all">1</div>
-            <div class="h-0.5 flex-1 bg-gray-800 mx-2" id="line-1"></div>
-            <div id="p-step-2" class="w-8 h-8 rounded-full flex items-center justify-center border-2 border-gray-800 bg-[#0b0f17] text-gray-500 font-bold text-sm transition-all">2</div>
-            <div class="h-0.5 flex-1 bg-gray-800 mx-2" id="line-2"></div>
-            <div id="p-step-3" class="w-8 h-8 rounded-full flex items-center justify-center border-2 border-gray-800 bg-[#0b0f17] text-gray-500 font-bold text-sm transition-all">3</div>
-        </div>
-
-        <!-- Form Layout -->
-        <form id="onboardingForm" novalidate>
+            <h1 class="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
+                Code<span class="text-[#00E5FF]">EX</span>
+            </h1>
+            <p class="text-xs uppercase tracking-[0.3em] text-[#00E5FF] font-medium mt-1">Where Logic Meets Leadership</p>
             
-            <!-- STEP 1: Domain Selection & Intent -->
+            <div class="mt-6 inline-block bg-[#00E5FF]/5 border border-[#00E5FF]/20 px-4 py-1.5 rounded-md text-xs font-mono text-[#00E5FF]">
+                [ SYSTEM ONBOARDING DRIVE // 18-19 JULY 2026 ]
+            </div>
+        </div>
+
+        <!-- Interactive Progress Tracker -->
+        <div class="flex items-center justify-between mb-10 max-w-md mx-auto relative z-10">
+            <div class="flex flex-col items-center gap-2">
+                <div id="p-step-1" class="w-10 h-10 rounded-xl flex items-center justify-center border border-[#00E5FF] bg-[#05070c] text-[#00E5FF] font-mono font-bold text-sm shadow-[0_0_15px_rgba(0,229,255,0.1)] transition-all">01</div>
+                <span class="text-[10px] uppercase tracking-wider text-[#00E5FF] font-semibold">Discovery</span>
+            </div>
+            <div class="h-[2px] flex-1 bg-gray-900 mx-2 -mt-5 transition-colors duration-300" id="line-1"></div>
+            <div class="flex flex-col items-center gap-2">
+                <div id="p-step-2" class="w-10 h-10 rounded-xl flex items-center justify-center border border-gray-900 bg-[#05070c] text-gray-600 font-mono font-bold text-sm transition-all">02</div>
+                <span class="text-[10px] uppercase tracking-wider text-gray-600 font-semibold" id="lbl-2">Skill Check</span>
+            </div>
+            <div class="h-[2px] flex-1 bg-gray-900 mx-2 -mt-5 transition-colors duration-300" id="line-2"></div>
+            <div class="flex flex-col items-center gap-2">
+                <div id="p-step-3" class="w-10 h-10 rounded-xl flex items-center justify-center border border-gray-900 bg-[#05070c] text-gray-600 font-mono font-bold text-sm transition-all">03</div>
+                <span class="text-[10px] uppercase tracking-wider text-gray-600 font-semibold" id="lbl-3">Profile</span>
+            </div>
+        </div>
+
+        <!-- Onboarding Core Form -->
+        <form id="onboardingForm" novalidate class="relative z-10">
+            
+            <!-- PHASE 1: Explore & Target Domains -->
             <div id="step-1" class="step-content active space-y-6">
-                <h3 class="text-lg font-semibold text-white mb-2">Step 1: Core Domain Selection & Intent</h3>
-                <label class="block text-sm font-medium text-gray-300">Select exactly ONE primary domain:</label>
-                
-                <div class="space-y-3 max-h-64 overflow-y-auto pr-2 border border-gray-800/60 p-2 rounded-xl bg-black/20">
-                    <!-- Domain Radios -->
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="Quantum Intelligence (QI)" class="mt-1 accent-[#00E5FF]" required>
-                        <span class="ml-3"><strong class="text-white block text-sm">Quantum Intelligence (QI)</strong><span class="text-xs text-gray-400">Focus: Quantum Algorithms, Quantum Machine Learning, Computational Optimization</span></span>
+                <div>
+                    <h3 class="text-xl font-bold text-white tracking-tight">Select Infrastructure Domain</h3>
+                    <p class="text-sm text-gray-400 mt-1">Review our 7 core execution layers and commit to exactly one track to unlock the learning pipeline[cite: 1].</p>
+                </div>
+
+                <div class="space-y-3 max-h-[380px] overflow-y-auto pr-2 custom-scroll bg-black/40 p-3 rounded-xl border border-gray-900">
+                    <!-- Domain Card 1 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="Quantum Intelligence (QI)" class="sr-only peer" required>
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">Quantum Intelligence (QI)</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_01</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Combines quantum computing logic with AI to break classical limits[cite: 1]. Focuses heavily on Quantum Machine Learning, specialized algorithms, and computational optimization arrays[cite: 1].</p>
+                        </div>
                     </label>
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="Creative Engineering & Product Development" class="mt-1 accent-[#00E5FF]">
-                        <span class="ml-3"><strong class="text-white block text-sm">Creative Engineering & Product Development</strong><span class="text-xs text-gray-400">Focus: Digital Media, Web Infrastructure, Product Building</span></span>
+
+                    <!-- Domain Card 2 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="Creative Engineering & Product Development" class="sr-only peer">
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">Creative Engineering & Product Development</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_02</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Transforms raw systemic ideas into polished, user-centric enterprise platforms[cite: 1]. Covers core UI/UX architecture, highly scalable web frontends, asset assembly, and strategic product branding[cite: 1].</p>
+                        </div>
                     </label>
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="Intelligent HealthTech & Bio-Engineering" class="mt-1 accent-[#00E5FF]">
-                        <span class="ml-3"><strong class="text-white block text-sm">Intelligent HealthTech & Bio-Engineering</strong><span class="text-xs text-gray-400">Focus: Clinical Data Analytics, Medical Imaging, Neuro-Tech & Biosignals</span></span>
+
+                    <!-- Domain Card 3 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="Intelligent HealthTech & Bio-Engineering" class="sr-only peer">
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">Intelligent HealthTech & Bio-Engineering</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_03</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Integrates deep learning with biological computing and neuro-technologies[cite: 1]. Focuses on handling advanced medical imaging datasets, clinical tracking intelligence, and parsing complex biosignals[cite: 1].</p>
+                        </div>
                     </label>
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="FinTech Systems & RegTech" class="mt-1 accent-[#00E5FF]">
-                        <span class="ml-3"><strong class="text-white block text-sm">FinTech Systems & RegTech</strong><span class="text-xs text-gray-400">Focus: Financial Infrastructure, AI Risk & Fraud Analysis, Compliance Automation</span></span>
+
+                    <!-- Domain Card 4 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="FinTech Systems & RegTech" class="sr-only peer">
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">FinTech Systems & RegTech</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_04</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Engineers autonomous, highly auditable, and completely secure modern financial tools[cite: 1]. Focuses on deep fraud detection logic, automated compliance engines, and automated clearing networks[cite: 1].</p>
+                        </div>
                     </label>
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="Cyber-Systems Engineering" class="mt-1 accent-[#00E5FF]">
-                        <span class="ml-3"><strong class="text-white block text-sm">Cyber-Systems Engineering</strong><span class="text-xs text-gray-400">Focus: Software-Defined Networks, Secure Cloud Infrastructure, Cybersecurity Operations</span></span>
+
+                    <!-- Domain Card 5 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="Cyber-Systems Engineering" class="sr-only peer">
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">Cyber-Systems Engineering</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_05</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Architects modern, software-defined computer networks and secure enterprise cloud fabrics[cite: 1]. Focuses heavily on threat hunting, infrastructure defense operations, and running container environments at scale[cite: 1].</p>
+                        </div>
                     </label>
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="Intelligent Systems Engineering" class="mt-1 accent-[#00E5FF]">
-                        <span class="ml-3"><strong class="text-white block text-sm">Intelligent Systems Engineering</strong><span class="text-xs text-gray-400">Focus: Generative AI, Computer Vision, Autonomous Agents</span></span>
+
+                    <!-- Domain Card 6 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="Intelligent Systems Engineering" class="sr-only peer">
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">Intelligent Systems Engineering</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_06</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Combines generative AI, computer vision arrays, and stateful multi-agent orchestrations[cite: 1]. Built to construct decoupled autonomous agent architectures that automate complex processes[cite: 1].</p>
+                        </div>
                     </label>
-                    <label class="flex items-start p-3 rounded-lg border border-gray-800 hover:border-[#00E5FF]/40 cursor-pointer bg-gray-900/40 transition">
-                        <input type="radio" name="domain" value="Physics-Informed AI & Scientific Computing" class="mt-1 accent-[#00E5FF]">
-                        <span class="ml-3"><strong class="text-white block text-sm">Physics-Informed AI & Scientific Computing</strong><span class="text-xs text-gray-400">Focus: Scientific Simulations, Inverse Problems, Physics-Aware ML</span></span>
+
+                    <!-- Domain Card 7 -->
+                    <label class="block relative cursor-pointer group">
+                        <input type="radio" name="domain" value="Physics-Informed AI & Scientific Computing" class="sr-only peer">
+                        <div class="domain-card p-4 rounded-xl border">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-white tracking-wide group-hover:text-[#00E5FF] transition">Physics-Informed AI & Scientific Computing</h4>
+                                <span class="text-[10px] font-mono text-gray-500 group-hover:text-[#00E5FF]/60 transition">LAYER_07</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Blends neural learning directly with fundamental physical laws and partial differential constraints[cite: 1]. Used to build models for complex scientific simulations and physical systems tracking[cite: 1].</p>
+                        </div>
                     </label>
                 </div>
 
+                <!-- Dynamic Learning Objective Subsections -->
                 <div class="space-y-4 hidden" id="intentFields">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">What specific concepts or tools do you want to learn within this domain over the next semester? *</label>
-                        <textarea name="learningGoals" rows="3" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] p-3 text-sm text-white outline-none transition"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">How do you plan to learn this? Describe your self-study roadmap or learning framework. *</label>
-                        <textarea name="learningRoadmap" rows="3" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] p-3 text-sm text-white outline-none transition"></textarea>
+                    <div class="border-l-2 border-[#00E5FF] pl-4 space-y-4 mt-4">
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-[#00E5FF] tracking-wider mb-2">Target Concepts & Tech Requirements *</label>
+                            <textarea name="learningGoals" rows="2" placeholder="What tools, packages, or systems do you expect to master in this track?" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] p-3 text-xs text-white outline-none transition"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-[#00E5FF] tracking-wider mb-2">Self-Study Framework Strategy *</label>
+                            <textarea name="learningRoadmap" rows="2" placeholder="Detail your study strategy or framework to grasp these tools rapidly over the semester." class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] p-3 text-xs text-white outline-none transition"></textarea>
+                        </div>
                     </div>
                 </div>
 
                 <div class="flex justify-end pt-4">
-                    <button type="button" onclick="nextStep(2)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-blue-600 hover:opacity-90 text-black font-semibold text-sm shadow-lg transition duration-200">Continue</button>
+                    <button type="button" onclick="nextStep(2)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-blue-600 hover:opacity-90 text-black font-mono font-bold text-xs tracking-wider uppercase shadow-[0_0_15px_rgba(0,229,255,0.2)] cursor-pointer transition">Next Layer</button>
                 </div>
             </div>
 
-            <!-- STEP 2: Adaptive Prerequisite & Skill Check -->
+            <!-- PHASE 2: Performance Evaluation Mapping -->
             <div id="step-2" class="step-content space-y-6">
-                <h3 class="text-lg font-semibold text-white mb-2">Step 2: Adaptive Prerequisite & Skill Check</h3>
-                
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">Do you have prior experience or foundational knowledge relevant to this chosen domain?</label>
-                    <div class="flex space-x-6">
-                        <label class="flex items-center cursor-pointer">
+                    <h3 class="text-xl font-bold text-white tracking-tight">Technical Assessment Matrix</h3>
+                    <p class="text-sm text-gray-400 mt-1">We adjust the onboarding layer depending on your technical baseline.</p>
+                </div>
+                
+                <div class="bg-black/30 p-4 rounded-xl border border-gray-900 space-y-3">
+                    <label class="block text-xs font-mono uppercase text-gray-400 tracking-wider">Select your domain experience profile:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                        <label class="flex items-center p-3 rounded-lg border border-gray-800 bg-gray-900/30 cursor-pointer hover:border-[#00E5FF]/30 transition">
                             <input type="radio" name="priorExperience" value="Yes" class="accent-[#00E5FF] h-4 w-4" onclick="toggleExperienceFields(true)">
-                            <span class="ml-2 text-sm text-white">Yes, I have background</span>
+                            <span class="ml-3 text-xs font-medium text-white">Active Foundational Base</span>
                         </label>
-                        <label class="flex items-center cursor-pointer">
+                        <label class="flex items-center p-3 rounded-lg border border-gray-800 bg-gray-900/30 cursor-pointer hover:border-[#00E5FF]/30 transition">
                             <input type="radio" name="priorExperience" value="No" class="accent-[#00E5FF] h-4 w-4" onclick="toggleExperienceFields(false)">
-                            <span class="ml-2 text-sm text-white">No, I am a fresh learner</span>
+                            <span class="ml-3 text-xs font-medium text-white">Fresh Track Fast Learner</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Conditional Path: Experienced -->
-                <div id="experiencedFields" class="space-y-4 hidden">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Rate your domain expertise (1 to 10):</label>
-                        <input type="number" name="expertiseRating" min="1" max="10" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                <!-- Experienced Matrix Fields -->
+                <div id="experiencedFields" class="space-y-4 hidden border-l-2 border-[#00E5FF] pl-4">
+                    <div class="grid grid-cols-3 items-center gap-4 bg-black/20 p-3 rounded-lg border border-gray-900">
+                        <label class="col-span-2 text-xs font-mono uppercase text-gray-400">Relative Mastery Score (1-10):</label>
+                        <input type="number" name="expertiseRating" min="1" max="10" placeholder="7" class="w-full rounded-md bg-black border border-gray-800 focus:border-[#00E5FF] p-2 text-center text-xs text-white outline-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">List your tech stack / tools used:</label>
-                        <input type="text" name="techStack" placeholder="e.g., PyTorch, Docker, Qiskit, Next.js" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                        <label class="block text-xs font-mono uppercase text-gray-400 tracking-wider mb-2">Languages & Framework Array:</label>
+                        <input type="text" name="techStack" placeholder="e.g., Python, PyTorch, C++, Docker, Next.js" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Describe a project or complex bottleneck you have personally solved here:</label>
-                        <textarea name="projectDescription" rows="3" placeholder="Explain the problem and your implementation..." class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-3 text-sm text-white outline-none"></textarea>
+                        <label class="block text-xs font-mono uppercase text-gray-400 tracking-wider mb-2">Bottleneck Resolution Review:</label>
+                        <textarea name="projectDescription" rows="3" placeholder="Detail a hard systemic block you resolved. Highlight the logic architecture and stack limits." class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-3 text-xs text-white outline-none"></textarea>
                     </div>
                 </div>
 
-                <!-- Conditional Path: Fresh Learner -->
-                <div id="freshFields" class="p-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 hidden space-y-3">
-                    <p class="text-xs text-yellow-400 leading-relaxed">
-                        💡 <strong>Commitment Pathway:</strong> As a fresh learner, you will undergo a structured, fast-paced sprint. You must build core competencies rapidly before getting linked with industry-level top-tier projects.
+                <!-- Fresh Track Pathway Notice -->
+                <div id="freshFields" class="p-4 rounded-xl border border-amber-500/20 bg-amber-500/5 hidden space-y-4">
+                    <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                        <span>⚠️</span> Core Learning Acceleration Layer Activated
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Fresh learners go through an intensive engineering sprint. You will have a dedicated timeframe to master architecture baselines prior to routing toward live enterprise solutions.
                     </p>
-                    <label class="flex items-start cursor-pointer">
+                    <label class="flex items-start cursor-pointer pt-2">
                         <input type="checkbox" name="commitmentCheck" value="Agreed" class="mt-1 accent-[#00E5FF] h-4 w-4">
-                        <span class="ml-3 text-xs text-gray-300 leading-normal">
-                            Are you fully prepared to dedicate 8-10 hours per week over a fixed period to master the foundations? *
+                        <span class="ml-3 text-xs text-gray-300 leading-relaxed font-medium">
+                            I explicitly commit to dedicating 8-10 hours weekly to complete all core foundational layers. *
                         </span>
                     </label>
                 </div>
 
-                <div class="flex justify-between pt-4">
-                    <button type="button" onclick="prevStep(1)" class="px-5 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 font-medium text-sm transition">Back</button>
-                    <button type="button" onclick="nextStep(3)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-blue-600 hover:opacity-90 text-black font-semibold text-sm shadow-lg transition">Continue</button>
+                <div class="flex justify-between pt-4 border-t border-gray-900">
+                    <button type="button" onclick="prevStep(1)" class="px-5 py-2.5 rounded-lg border border-gray-800 text-gray-400 hover:bg-gray-900 font-mono text-xs uppercase tracking-wider transition">Back</button>
+                    <button type="button" onclick="nextStep(3)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-blue-600 hover:opacity-90 text-black font-mono font-bold text-xs tracking-wider uppercase shadow-[0_0_15px_rgba(0,229,255,0.2)] cursor-pointer transition">Next</button>
                 </div>
             </div>
 
-            <!-- STEP 3: Administrative Profile Data -->
+            <!-- PHASE 3: Administrative Registry Data -->
             <div id="step-3" class="step-content space-y-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Step 3: Background & Administrative Data</h3>
+                <div>
+                    <h3 class="text-xl font-bold text-white tracking-tight">Administrative Authentication</h3>
+                    <p class="text-sm text-gray-400 mt-1">Provide contact parameters to index your application correctly.</p>
+                </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-medium text-gray-400 mb-1">Full Name *</label>
-                        <input type="text" name="fullName" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                        <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Full Legal Name *</label>
+                        <input type="text" name="fullName" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition" required>
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-400 mb-1">Academic Roll Number *</label>
-                        <input type="text" name="rollNumber" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-medium text-gray-400 mb-1">Class / Semester / Department *</label>
-                        <input type="text" name="classDetails" placeholder="e.g., III BSc Computer Science" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-400 mb-1">Official SSSIHL Email *</label>
-                        <input type="email" name="email" placeholder="username@sssihl.edu.in" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
+                        <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Academic Roll Identifier *</label>
+                        <input type="text" name="rollNumber" placeholder="e.g., 24CSC42" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition" required>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">WhatsApp Contact Number *</label>
-                    <input type="tel" name="whatsapp" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-medium text-gray-400 mb-1">GitHub Profile Link (Optional)</label>
-                        <input type="url" name="github" placeholder="https://github.com/..." class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                        <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Class / Semester / Department *</label>
+                        <input type="text" name="classDetails" placeholder="e.g., I MTech AI" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition" required>
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-400 mb-1">Portfolio or LinkedIn Link (Optional)</label>
-                        <input type="url" name="portfolio" placeholder="https://..." class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none">
+                        <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Primary Email Contact *</label>
+                        <input type="email" name="email" placeholder="name@domain.com" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition" required>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">Why choose a fast-paced R&D sandbox like CodeEX over a traditional club? *</label>
-                    <textarea name="whyCodeex" rows="2" class="w-full rounded-lg bg-gray-900 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-sm text-white outline-none" required></textarea>
+                    <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Secure WhatsApp Target Line *</label>
+                    <input type="tel" name="whatsapp" placeholder="+91 XXXXX XXXXX" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition" required>
                 </div>
 
-                <div class="flex justify-between pt-4">
-                    <button type="button" onclick="prevStep(2)" class="px-5 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 font-medium text-sm transition">Back</button>
-                    <button type="submit" id="submitBtn" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-emerald-500 hover:opacity-90 text-black font-bold text-sm shadow-lg transition">Submit Application</button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-gray-400 mb-1">GitHub Endpoint URL (Optional)</label>
+                        <input type="url" name="github" placeholder="https://github.com/..." class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Portfolio Matrix / LinkedIn (Optional)</label>
+                        <input type="url" name="portfolio" placeholder="https://..." class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono uppercase text-gray-400 mb-1">Why choose an agile R&D sandbox over traditional campus clubs? *</label>
+                    <textarea name="whyCodeex" rows="2" placeholder="What drives you to join a high-throughput deep tech framework?" class="w-full rounded-lg bg-black/60 border border-gray-800 focus:border-[#00E5FF] p-2.5 text-xs text-white outline-none transition" required></textarea>
+                </div>
+
+                <div class="flex justify-between pt-4 border-t border-gray-900">
+                    <button type="button" onclick="prevStep(2)" class="px-5 py-2.5 rounded-lg border border-gray-800 text-gray-400 hover:bg-gray-900 font-mono text-xs uppercase tracking-wider transition">Back</button>
+                    <button type="submit" id="submitBtn" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-emerald-500 hover:opacity-90 text-black font-mono font-bold text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(0,229,255,0.15)] cursor-pointer transition">Commit Registration</button>
                 </div>
             </div>
         </form>
 
-        <!-- Success Message -->
-        <div id="successLayout" class="hidden text-center py-12 space-y-4">
-            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto text-emerald-400 text-3xl font-bold">✓</div>
-            <h2 class="text-2xl font-bold text-white">Application Pipeline Activated</h2>
-            <p class="text-gray-400 text-sm max-w-sm mx-auto">
-                Your parameters have been structuralized into the CodeEX repository database. We will review your profile for the next sprint layer.
+        <!-- Dynamic Success Array Terminal -->
+        <div id="successLayout" class="hidden text-center py-14 space-y-5 relative">
+            <div class="w-16 h-16 bg-emerald-500/5 border border-emerald-400/30 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(16,185,129,0.1)] font-mono text-2xl font-black">
+                OK
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Onboarding Payload Staged</h2>
+            <p class="text-xs text-gray-400 max-w-sm mx-auto leading-relaxed">
+                Your parameters have been logged into the CodeEX repository dataset via Google Sheets. The evaluation logic checks will update your timeline shorty.
             </p>
+            <div class="pt-2">
+                <span class="inline-block font-mono text-[10px] uppercase text-gray-600 bg-gray-950 px-3 py-1 rounded border border-gray-900">
+                    STATUS_CODE // 202_ACCEPTED
+                </span>
+            </div>
         </div>
     </div>
 
-    <!-- UI Logic & Form Processing Script -->
+    <!-- State Systems Architecture JavaScript Module -->
     <script>
-        // Replace with your real URL generated during deployment of Google Apps Script
+        // Inject your Google Apps Script Web App Endpoint here after deployment
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOcC4vVkzq5LSkHT-Yql0gmZGv-ROvHW9LYTxSGJ3sFtsFIH-Nam6Zpf9XzgiIaxuX4A/exec';
 
-        // Monitor domain selection to show dynamic textareas
+        // Monitor domain selection changes to transition hidden UI inputs
         document.querySelectorAll('input[name="domain"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 const fields = document.getElementById('intentFields');
@@ -271,15 +386,11 @@
                     if (!f.checked) valid = false;
                 } else {
                     if (!f.value.trim()) valid = false;
-                    if (f.type === 'email' && f.value.trim() && !f.value.endsWith('@sssihl.edu.in')) {
-                        alert("Please use your official @sssihl.edu.in email address.");
-                        valid = false;
-                    }
                 }
             });
 
             if(!valid) {
-                alert("Please answer all required pipeline parameters explicitly before processing.");
+                alert("Validation Fault: Ensure all required parameters are completely filled before processing next layer.");
             }
             return valid;
         }
@@ -291,11 +402,13 @@
             document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
             document.getElementById(`step-${target}`).classList.add('active');
             
-            // Sync indicators
+            // Sync indicators mapping colors dynamically
             for(let i=1; i<=3; i++) {
                 const indicator = document.getElementById(`p-step-${i}`);
+                const label = document.getElementById(`lbl-${i}`);
                 if (i <= target) {
-                    indicator.classList.add('border-[#00E5FF]', 'text-[#00E5FF]');
+                    indicator.classList.add('border-[#00E5FF]', 'text-[#00E5FF]', 'shadow-[0_0_15px_rgba(0,229,255,0.1)]');
+                    if (label) label.classList.add('text-[#00E5FF]');
                     if(i < target) document.getElementById(`line-${i}`).classList.add('bg-[#00E5FF]');
                 }
             }
@@ -306,20 +419,20 @@
             document.getElementById(`step-${target}`).classList.add('active');
         }
 
-        // Form submission interceptor
+        // Catch form posting signals
         document.getElementById('onboardingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             if (!validateStep(3)) return;
 
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.innerText = "Processing Parameters...";
+            btn.innerText = "PROCESSING DATA SYNC...";
 
             const formData = new FormData(this);
             const data = {};
             formData.forEach((value, key) => { data[key] = value; });
             
-            // Explicitly set null values for opposing conditional fields
+            // Conditional alignment defaults logic check
             if (data.priorExperience === 'No') {
                 data.expertiseRating = 'N/A';
                 data.techStack = 'N/A';
@@ -328,23 +441,25 @@
                 data.commitmentCheck = 'N/A';
             }
 
-            // Execute raw JSON injection to the script endpoint
+            // Fire fetch tracking endpoint cleanly
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Bypasses browser CORS constraints cleanly for web-app endpoints
+                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
             .then(() => {
                 document.getElementById('onboardingForm').classList.add('hidden');
                 document.getElementById('successLayout').classList.remove('hidden');
-                document.getElementById('p-step-3').classList.add('bg-[#00E5FF]', 'text-black');
+                const lastIndicator = document.getElementById('p-step-3');
+                lastIndicator.classList.remove('text-[#00E5FF]');
+                lastIndicator.classList.add('bg-[#00E5FF]', 'text-black', 'font-black');
             })
             .catch(err => {
                 console.error(err);
-                alert("Pipeline data processing error. Please contact a CodeEX core administrator inside the room.");
+                alert("Asynchronous payload delivery fault. Verify target endpoint connectivity rules.");
                 btn.disabled = false;
-                btn.innerText = "Submit Application";
+                btn.innerText = "Commit Registration";
             });
         });
     </script>
